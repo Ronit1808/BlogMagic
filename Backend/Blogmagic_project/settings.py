@@ -137,3 +137,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GEMINI_API_KEY = 'AIzaSyAge_b19GWflHMnfbRM1ehBh4pi8cMF-PQ'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Frontend origin
+    "http://127.0.0.1:5173",  # Alternative local address
+]
