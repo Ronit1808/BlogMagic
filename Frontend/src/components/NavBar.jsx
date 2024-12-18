@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual auth logic
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen">
+    <div className="Navbar">
       <nav className=" text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -20,18 +21,18 @@ const NavBar = () => {
             <div className="hidden sm:flex sm:space-x-6 items-center">
               {!isLoggedIn ? (
                 <>
-                  <a
-                    href="/login"
+                  <Link
+                    to="/login"
                     className="hover:text-indigo-500 transition duration-200"
                   >
                     Login
-                  </a>
-                  <a
-                    href="/register"
+                  </Link>
+                  <Link
+                    to="/register"
                     className="hover:text-indigo-500 transition duration-200"
                   >
                     Register
-                  </a>
+                  </Link>
                 </>
               ) : (
                 <>

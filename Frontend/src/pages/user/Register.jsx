@@ -1,0 +1,95 @@
+import React from "react";
+
+const Register = () => {
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="bg-[#2b2779] p-8 rounded-lg shadow-lg max-w-md w-full">
+        {/* Heading */}
+        <h1 className="text-3xl font-bold text-white text-center">
+          Create Your Account
+        </h1>
+        <p className="mt-2 text-gray-300 text-center">
+          Join BlogMagic and start your blogging journey!
+        </p>
+
+        {/* Registration Form */}
+        <form className="mt-6 space-y-4">
+          {/* Full Name */}
+          <div>
+            <label htmlFor="fullName" className="block text-sm text-white">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter your full name"
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label htmlFor="email" className="block text-sm text-white">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter your email"
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label htmlFor="password" className="block text-sm text-white">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm text-white"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Confirm your password"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-6">
+            <button
+              type="submit"
+              className="w-full bg-indigo-700 hover:bg-indigo-500 text-white py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300 transform hover:scale-105"
+            >
+              Register Now
+            </button>
+          </div>
+        </form>
+
+        {/* Already have an account */}
+        <p className="mt-6 text-center text-gray-300">
+          Already have an account?{" "}
+          <a href="/login" className="text-indigo-500 hover:text-indigo-400">
+            Login here
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
