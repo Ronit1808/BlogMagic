@@ -17,7 +17,7 @@ class BlogPostRequest(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
 
     TONE_CHOICES = [
-        ('formal', 'Formal'),
+        ('neutral', 'Neutral'),
         ('informal', 'Informal'),
         ('friendly', 'Friendly'),
         ('professional', 'Professional'),
