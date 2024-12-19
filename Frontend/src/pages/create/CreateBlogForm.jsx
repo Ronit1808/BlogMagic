@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import api from "../../api";
 import Bloggif from "../../assets/Blog.gif";
+import { FaCopy, FaPen, FaTimes } from "react-icons/fa";
 
 const CreateBlogForm = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     topic: "",
     tone: "friendly",
     length: "medium",
     content_method: "ai",
-  });
+    content: "",
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [showFullContent, setShowFullContent] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,8 +31,17 @@ const CreateBlogForm = () => {
     setResponseData(null);
 
     try {
-      const response = await api.post("create/", formData);
-      setResponseData(response.data);
+      if (formData.content_method === "ai") {
+        const response = await api.post("create/", formData);
+        setResponseData(response.data);
+      } else {
+        setResponseData({
+          topic: formData.topic,
+          tone: formData.tone,
+          length: formData.length,
+          content: formData.content,
+        });
+      }
     } catch (error) {
       setError("Failed to create the blog. Please try again.");
       console.error("Error:", error.response?.data || error.message);
@@ -35,18 +50,40 @@ const CreateBlogForm = () => {
     }
   };
 
+  const handleCreateAnother = () => {
+    setFormData(initialFormData);
+    setResponseData(null);
+    setError("");
+    setIsEditing(false);
+    setShowFullContent(false);
+  };
+
   const handleSave = () => {
-    alert("Blog saved successfully!"); // Placeholder for save functionality
+    alert("Blog saved successfully");
+  };
+
+  const handleCopyCode = () => {
+    if (responseData?.content) {
+      navigator.clipboard.writeText(responseData.content);
+      alert("Content copied to clipboard!");
+    }
+  };
+
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const toggleShowContent = () => {
+    setShowFullContent(!showFullContent);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-bl from-[#0f172a] via-[#1e1a78] to-[#0f172a] flex justify-center items-center">
-      <div className={`max-w-5xl w-full flex rounded-2xl shadow-lg bg-white overflow-hidden`}>
-        {/* Conditionally render the left GIF section */}
+    <div className="min-h-screen bg-gradient-to-bl from-[#0f172a] via-[#1e1a78] to-[#0f172a] pt-4 pb-10 flex justify-center items-center">
+      <div className="max-w-5xl w-full flex rounded-2xl shadow-lg bg-white overflow-hidden">
         {!responseData && (
           <div className="w-1/2 bg-indigo-600 text-white p-8 flex flex-col justify-center relative">
             <img
-              src={Bloggif} // Replace with your GIF path
+              src={Bloggif}
               alt="Creative Background"
               className="w-full h-auto object-cover opacity-80"
             />
@@ -56,12 +93,17 @@ const CreateBlogForm = () => {
           </div>
         )}
 
-        {/* Right Form/Response Section */}
-        <div className={`${responseData ? "w-full" : "w-1/2"} p-8 flex flex-col justify-center`}>
+        <div
+          className={`${
+            responseData ? "w-full bg-[#1e1a78]" : "w-1/2"
+          } p-8 flex flex-col justify-center`}
+        >
           {!responseData ? (
             <>
               <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-                Create a Blog Post
+                {formData.content_method === "ai"
+                  ? "Create a Blog Post"
+                  : "Write Your Blog Post"}
               </h1>
 
               {error && (
@@ -71,7 +113,6 @@ const CreateBlogForm = () => {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Topic */}
                 <div>
                   <label
                     htmlFor="topic"
@@ -91,7 +132,6 @@ const CreateBlogForm = () => {
                   />
                 </div>
 
-                {/* Tone */}
                 <div>
                   <label
                     htmlFor="tone"
@@ -113,7 +153,6 @@ const CreateBlogForm = () => {
                   </select>
                 </div>
 
-                {/* Length */}
                 <div>
                   <label
                     htmlFor="length"
@@ -134,7 +173,6 @@ const CreateBlogForm = () => {
                   </select>
                 </div>
 
-                {/* Content Method */}
                 <div>
                   <label
                     htmlFor="content_method"
@@ -154,7 +192,27 @@ const CreateBlogForm = () => {
                   </select>
                 </div>
 
-                {/* Submit Button */}
+                {formData.content_method === "user" && (
+                  <div>
+                    <label
+                      htmlFor="content"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Content
+                    </label>
+                    <textarea
+                      id="content"
+                      name="content"
+                      value={formData.content}
+                      onChange={handleChange}
+                      className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Write your blog content here..."
+                      rows="6"
+                      required
+                    />
+                  </div>
+                )}
+
                 <div>
                   <button
                     type="submit"
@@ -165,48 +223,91 @@ const CreateBlogForm = () => {
                     }`}
                     disabled={loading}
                   >
-                    {loading ? "Creating..." : "Create"}
+                    {loading ? "Submitting..." : "Submit"}
                   </button>
                 </div>
               </form>
             </>
           ) : (
-            <>
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                Blog Created Successfully!
-              </h2>
-              <div className="space-y-4 bg-gray-100 p-6 rounded-lg shadow-md">
-                <p>
-                  <strong>Topic:</strong> {responseData.topic}
-                </p>
-                <p>
-                  <strong>Tone:</strong> {responseData.tone}
-                </p>
-                <p>
-                  <strong>Length:</strong> {responseData.length}
-                </p>
-                <div>
-                  <strong>Content:</strong>
-                  <div className="mt-2 p-4 bg-white rounded-lg shadow-sm h-60 overflow-y-auto border">
-                    {responseData.content}
-                  </div>
+            <div>
+              <div className="text-center text-white font-semibold text-2xl">
+                {formData.topic}
+              </div>
+              <p className="text-left px-6 text-green-300 pr-10 italic">
+                Tone : {formData.tone}
+              </p>
+              <p className="text-left px-6 mb-4 text-green-300 pr-10 italic">
+                Length : {formData.length}
+              </p>
+              <div className="flex justify-end items-center text-gray-300 pr-10 gap-4 mb-4">
+                <div
+                  className="flex items-center cursor-pointer"
+                  onClick={handleCopyCode}
+                >
+                  <FaCopy className="mr-2" /> Copy 
+                </div>
+                <div
+                  className="flex items-center cursor-pointer"
+                  onClick={toggleEdit}
+                >
+                  {isEditing ? <FaTimes className="mr-2" /> : <FaPen className="mr-2" />}
+                  {isEditing ? "Stop Editing" : "Edit"}
                 </div>
               </div>
+              <div
+                className={`p-6 rounded-lg ${
+                  isEditing
+                    ? "bg-white text-black border"
+                    : "bg-[#1e1a78] text-white"
+                }`}
+              >
+                {isEditing ? (
+                  <textarea
+                    value={responseData.content}
+                    onChange={(e) =>
+                      setResponseData({ ...responseData, content: e.target.value })
+                    }
+                    className="block w-full px-4 py-3 rounded-lg shadow-md border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                    rows="8"
+                  />
+                ) : (
+                  <div
+                    className={`overflow-hidden ${
+                      showFullContent ? "max-h-full" : "max-h-32"
+                    } transition-all duration-300`}
+                    style={{
+                      whiteSpace: "pre-wrap",
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    {responseData.content}
+                  </div>
+                )}
+                {!isEditing && (
+                  <button
+                    onClick={toggleShowContent}
+                    className="mt-4 text-indigo-300 underline"
+                  >
+                    {showFullContent ? "Show Less" : "Show More"}
+                  </button>
+                )}
+              </div>
+
               <div className="mt-6 flex justify-between">
                 <button
-                  onClick={() => setResponseData(null)} // Reset the form
-                  className="py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg"
+                  onClick={handleCreateAnother}
+                  className="py-3 px-4 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white font-semibold rounded-lg"
                 >
-                  Create Another Blog Post
+                  Create Another
                 </button>
                 <button
-                  onClick={handleSave} // Save button functionality
-                  className="py-3 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg"
+                  onClick={handleSave}
+                  className="py-3 px-4 bg-gradient-to-r from-green-500 via-teal-500 to-cyan-500 hover:from-cyan-500 hover:via-teal-500 hover:to-green-500 text-white font-semibold rounded-lg"
                 >
-                  Save Blog Post
+                  Save
                 </button>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>
