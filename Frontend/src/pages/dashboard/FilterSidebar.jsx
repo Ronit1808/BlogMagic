@@ -2,7 +2,7 @@ import React from "react";
 
 const FilterSidebar = () => {
   return (
-    <div className="w-full lg:w-1/4 bg-gradient-to-r from-blue-800 to-indigo-900 p-4 rounded-lg shadow-md">
+    <div className="w-full lg:w-1/4 bg-[#1e1a78] p-4 rounded-lg shadow-md">
       <h3 className="text-lg font-bold text-white mb-4">Filter Blogs</h3>
 
       {/* Tone Filter */}

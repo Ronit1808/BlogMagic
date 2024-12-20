@@ -3,7 +3,7 @@ import React from "react";
 const BlogCard = ({ title, content, author, date, onClick }) => {
   return (
     <div
-      className="bg-[#1e293b] p-4 rounded-lg shadow-md hover:shadow-lg max-w-sm min-h-[200px] max-h-[200px] flex flex-col transition-shadow duration-300 cursor-pointer"
+      className="bg-[#1e1a78] p-4 rounded-lg shadow-md hover:shadow-lg max-w-sm min-h-[200px] max-h-[200px] flex flex-col transition-shadow duration-300 cursor-pointer"
       onClick={onClick} // Trigger to view full content
     >
       {/* Title */}
