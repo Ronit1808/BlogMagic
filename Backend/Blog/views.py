@@ -5,6 +5,7 @@ import google.generativeai as genai
 from django.conf import settings
 from .serializers import BlogPostRequestSerializer
 from rest_framework import status
+from .models import BlogPostRequest
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
@@ -45,20 +46,41 @@ class CreateBlogPostView(APIView):
         serializer = BlogPostRequestSerializer(data=request.data)
 
         if serializer.is_valid():
-            topic = request.data.get('topic')
-            tone = request.data.get('tone', 'neutral')  # Default to 'neutral' if not provided
-            length = request.data.get('length', 'medium')  # Default to 'medium' if not provided
-            content_method = request.data.get('content_method')
+            topic = serializer.validated_data.get('topic')
+            tone = serializer.validated_data.get('tone', 'friendly')
+            length = serializer.validated_data.get('length', 'medium')
+            content_method = serializer.validated_data.get('content_method')
+            content = serializer.validated_data.get('content', None)
 
-            # Use AI to generate content if the method is 'ai'
+            # Generate content if method is 'ai'
             if content_method == 'ai':
-                generated_content = generate_blog_content_with_genai(topic, tone, length)
-                serializer.validated_data['content'] = generated_content
+                content = generate_blog_content_with_genai(topic, tone, length)
 
-            # Save the blog post with the generated content
-            serializer.save()
+            # Save the blog post
+            blog_post = BlogPostRequest.objects.create(
+                user=request.user if request.user.is_authenticated else None,  # Save user if available
+                topic=topic,
+                tone=tone,
+                length=length,
+                content_method=content_method,
+                content=content,
+                status='completed' if content else 'failed'
+            )
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            # Return response
+            response_data = {
+                "id": blog_post.id,
+                "topic": blog_post.topic,
+                "slug": blog_post.slug,
+                "tone": blog_post.tone,
+                "length": blog_post.length,
+                "content_method": blog_post.content_method,
+                "content": blog_post.content,
+                "status": blog_post.status,
+                "created_at": blog_post.created_at,
+                "updated_at": blog_post.updated_at,
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
