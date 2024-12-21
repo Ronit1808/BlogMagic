@@ -5,7 +5,10 @@ import google.generativeai as genai
 from django.conf import settings
 from .serializers import BlogPostRequestSerializer
 from rest_framework import status
-from .models import BlogPostRequest
+from .models import BlogPostRequest , User ,UserProfile
+from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import AllowAny
+from django.contrib.auth.hashers import make_password
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
@@ -86,6 +89,40 @@ class CreateBlogPostView(APIView):
 
 
 
-class BlogTestAPIView(APIView):
-    def get(self, request):
-        return Response({"message": "Blog app API with DRF is working!"})
+class SignupView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        data = request.data
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+
+        # Validate input
+        if not username or not email or not password:
+            raise ValidationError("All fields (username, email, password) are required.")
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("A user with this username already exists.")
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("A user with this email already exists.")
+
+        # Create user
+        try:
+            user = User.objects.create(
+                username=username,
+                email=email,
+                password=make_password(password),  # Hash the password
+            )
+           
+            UserProfile.objects.create(user=user)
+
+            return Response(
+                {"message": "User created successfully.", "username": user.username},
+                status=status.HTTP_201_CREATED
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
