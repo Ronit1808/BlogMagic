@@ -1,6 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../api";
 
 const Register = () => {
+
+  const [username , setUsername] = useState("")
+  const [password , setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    const userInfo = { username, password, email };
+
+    try {
+      const res = await api.post("signup/", userInfo);
+      if (res.status === 201) {
+        setSuccess("Account created successfully! Redirecting to login...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to create account");
+    }
+  };
+
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="bg-[#2b2779] p-8 rounded-lg shadow-lg max-w-md w-full">
@@ -11,19 +47,32 @@ const Register = () => {
         <p className="mt-2 text-gray-300 text-center">
           Join BlogMagic and start your blogging journey!
         </p>
+        {error && (
+          <div className="mb-4 p-2 bg-red-100 text-red-600 rounded-md text-sm">
+            {error}
+          </div>
+        )}
+        {success && (
+          <div className="mb-4 p-2 bg-green-100 text-green-600 rounded-md text-sm">
+            {success}
+          </div>
+        )}
 
         {/* Registration Form */}
-        <form className="mt-6 space-y-4">
+        <form onSubmit={handleSignup} className="mt-6 space-y-4">
           {/* Full Name */}
           <div>
-            <label htmlFor="fullName" className="block text-sm text-white">
-              Full Name
+            <label htmlFor="username" className="block text-sm text-white">
+              Username
             </label>
             <input
               type="text"
-              id="fullName"
+              id="username"
               className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="Enter your full name"
+              placeholder="Enter your username"
+              value={username}
+              required
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -37,6 +86,9 @@ const Register = () => {
               id="email"
               className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Enter your email"
+              value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -50,6 +102,9 @@ const Register = () => {
               id="password"
               className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Enter your password"
+              value={password}
+              required
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -66,6 +121,9 @@ const Register = () => {
               id="confirmPassword"
               className="w-full mt-1 px-4 py-2 text-black bg-slate-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Confirm your password"
+              value={confirmPassword}
+              required
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
 

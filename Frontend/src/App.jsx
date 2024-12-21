@@ -7,20 +7,23 @@ import Login from "./pages/user/Login"
 import Register from "./pages/user/Register"
 import DashboardPage from "./pages/dashboard/DashboardPage"
 import CreateBlogForm from "./pages/create/CreateBlogForm"
+import { AuthProvider } from "./components/context/AuthContext"
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<MainLayout/>}>
-          <Route index element={<Home/>}/>
-          <Route path="login/" element={<Login/>}/>
-          <Route path="register/" element={<Register/>}/>
-          <Route path="dashboard/" element={<DashboardPage/>}/>
-          <Route path="create/" element={<CreateBlogForm/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path='/' element={<MainLayout/>}>
+              <Route index element={<Home/>}/>
+              <Route path="login/" element={<Login/>}/>
+              <Route path="register/" element={<Register/>}/>
+              <Route path="dashboard/" element={<DashboardPage/>}/>
+              <Route path="create/" element={<CreateBlogForm/>}/>
+            </Route>
+          </Routes>
+          </AuthProvider>
+      </BrowserRouter>
   )
   
 }
