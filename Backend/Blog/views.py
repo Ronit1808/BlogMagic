@@ -9,6 +9,10 @@ from .models import BlogPostRequest , User ,UserProfile
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.hashers import make_password
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter, SearchFilter
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
@@ -126,3 +130,24 @@ class SignupView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
+
+class UserBlogsView(ListAPIView):
+    queryset = BlogPostRequest.objects.all()
+    serializer_class = BlogPostRequestSerializer
+    permission_classes = [IsAuthenticated]
+
+    # Add filters, ordering, and pagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+
+    # Fields available for filtering
+    filterset_fields = ['content_method', 'tone', 'length']
+
+    # Fields available for ordering
+    ordering_fields = ['created_at', 'updated_at']
+
+    # Fields available for search
+    search_fields = ['topic', 'content']
+
+    def get_queryset(self):
+        # Restrict blogs to the authenticated user
+        return BlogPostRequest.objects.filter(user=self.request.user)
