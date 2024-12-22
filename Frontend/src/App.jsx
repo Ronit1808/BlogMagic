@@ -8,6 +8,7 @@ import Register from "./pages/user/Register"
 import DashboardPage from "./pages/dashboard/DashboardPage"
 import CreateBlogForm from "./pages/create/CreateBlogForm"
 import { AuthProvider } from "./components/context/AuthContext"
+import Protected from "./components/Protected"
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
               <Route index element={<Home/>}/>
               <Route path="login/" element={<Login/>}/>
               <Route path="register/" element={<Register/>}/>
-              <Route path="dashboard/" element={<DashboardPage/>}/>
-              <Route path="create/" element={<CreateBlogForm/>}/>
+              <Route path="dashboard/" element={<Protected> <DashboardPage/> </Protected>}/>
+              <Route path="create/" element={<Protected><CreateBlogForm/> </Protected>}/>
             </Route>
           </Routes>
           </AuthProvider>

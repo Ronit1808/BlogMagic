@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -16,12 +17,12 @@ const HeroSection = () => {
 
         {/* Generate Now Button */}
                 <div className="mt-12">
-          <a
-            href="/create"
+          <Link
+            to="/create"
             className="bg-indigo-700 hover:bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 px-6 rounded-lg text-xl shadow-xl transition duration-300 transform hover:scale-105 hover:shadow-2xl"
           >
             Generate Now
-          </a>
+          </Link>
         </div>
 
       </div>

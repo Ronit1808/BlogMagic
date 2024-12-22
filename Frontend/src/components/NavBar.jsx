@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "./context/AuthContext";
 
 const NavBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual auth logic
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {user , logoutUser} = useContext(AuthContext)
+  const isLoggedIn = !!user
+
 
   return (
     <div className="Navbar">
@@ -12,9 +15,11 @@ const NavBar = () => {
           <div className="flex justify-between h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <span className="text-2xl font-bold text-white">
-                BlogMagic
-              </span>
+              <Link to='/'>
+                <span className="text-2xl font-bold text-white">
+                  BlogMagic
+                </span>
+              </Link>
             </div>
 
             {/* Desktop Menu */}
@@ -36,18 +41,24 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <a
-                    href="/account"
+                  <Link
+                    to="/dashboard"
+                    className="hover:text-indigo-500 transition duration-200"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    to="/account"
                     className="hover:text-indigo-500 transition duration-200"
                   >
                     Account
-                  </a>
-                  <a
-                    href="/logout"
+                  </Link>
+                  <Link
                     className="hover:text-indigo-500 transition duration-200"
+                    onClick={logoutUser}
                   >
                     Logout
-                  </a>
+                  </Link>
                 </>
               )}
             </div>
