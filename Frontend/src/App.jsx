@@ -9,6 +9,7 @@ import DashboardPage from "./pages/dashboard/DashboardPage"
 import CreateBlogForm from "./pages/create/CreateBlogForm"
 import { AuthProvider } from "./components/context/AuthContext"
 import Protected from "./components/Protected"
+import BlogPage from "./pages/dashboard/BlogPage"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="login/" element={<Login/>}/>
               <Route path="register/" element={<Register/>}/>
               <Route path="dashboard/" element={<Protected> <DashboardPage/> </Protected>}/>
+              <Route path="blog/:slug/" element={<BlogPage />} />
               <Route path="create/" element={<Protected><CreateBlogForm/> </Protected>}/>
             </Route>
           </Routes>

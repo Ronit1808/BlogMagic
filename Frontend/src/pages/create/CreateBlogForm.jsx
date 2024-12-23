@@ -50,10 +50,25 @@ const CreateBlogForm = () => {
     setShowFullContent(false);
   };
 
-  const handleSave = () => {
-    alert("Blog saved successfully");
+  const handleSave = async () => {
+    if (responseData?.slug) {
+      try {
+        const updatedData = {
+          topic: responseData.topic,
+          tone: responseData.tone,
+          length: responseData.length,
+          content: responseData.content,
+          content_method: responseData.content_method,
+        };
+        await api.patch(`blogs/${responseData.slug}/edit/`, updatedData);
+        alert("Blog saved successfully!");
+      } catch (error) {
+        alert("Failed to save the blog. Please try again.");
+        console.error("Error:", error.response?.data || error.message);
+      }
+    }
   };
-
+  
   const handleCopyCode = () => {
     if (responseData?.content) {
       navigator.clipboard.writeText(responseData.content);

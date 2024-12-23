@@ -11,7 +11,9 @@ const BlogResponse = ({
   toggleShowContent,
   handleCreateAnother,
   handleSave,
-  setResponseData
+  setResponseData,
+  handleDelete,
+  slug
 }) => {
   return (
             <div>
@@ -79,12 +81,21 @@ const BlogResponse = ({
               </div>
 
               <div className="mt-6 flex justify-between">
-                <button
-                  onClick={handleCreateAnother}
-                  className="py-3 px-4 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white font-semibold rounded-lg"
-                >
-                  Create Another
-                </button>
+              {slug ? (
+                  <button
+                    onClick={handleDelete}
+                    className="py-3 px-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleCreateAnother}
+                    className="py-3 px-4 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
+                  >
+                    Create Another
+                  </button>
+                )}
                 <button
                   onClick={handleSave}
                   className="py-3 px-4 bg-gradient-to-r from-green-500 via-teal-500 to-cyan-500 hover:from-cyan-500 hover:via-teal-500 hover:to-green-500 text-white font-semibold rounded-lg"
