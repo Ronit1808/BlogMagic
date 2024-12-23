@@ -1,4 +1,4 @@
-from django.shortcuts import render
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import google.generativeai as genai
@@ -9,7 +9,7 @@ from .models import BlogPostRequest , User ,UserProfile
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.hashers import make_password
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView , RetrieveUpdateAPIView , RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
@@ -49,6 +49,8 @@ def generate_blog_content_with_genai(topic, tone, length):
 
 
 class CreateBlogPostView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         serializer = BlogPostRequestSerializer(data=request.data)
 
@@ -132,7 +134,7 @@ class SignupView(APIView):
 
 
 class UserBlogsView(ListAPIView):
-    queryset = BlogPostRequest.objects.all()
+    queryset = BlogPostRequest.objects.all().order_by('-created_at') 
     serializer_class = BlogPostRequestSerializer
     permission_classes = [IsAuthenticated]
 
@@ -140,7 +142,12 @@ class UserBlogsView(ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
 
     # Fields available for filtering
-    filterset_fields = ['content_method', 'tone', 'length']
+    filterset_fields = {
+        'tone': ['exact', 'in'],       
+        'length': ['exact', 'in'], 
+        'content_method' : ['exact' , 'in']
+        
+    }
 
     # Fields available for ordering
     ordering_fields = ['created_at', 'updated_at']
@@ -151,3 +158,51 @@ class UserBlogsView(ListAPIView):
     def get_queryset(self):
         # Restrict blogs to the authenticated user
         return BlogPostRequest.objects.filter(user=self.request.user)
+    
+class UpdateBlogPostView(RetrieveUpdateAPIView):
+    queryset = BlogPostRequest.objects.all()
+    serializer_class = BlogPostRequestSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = "slug"  # Use 'slug' instead of 'id'
+
+    def get_queryset(self):
+        # Restrict access to the blogs owned by the authenticated user
+        return BlogPostRequest.objects.filter(user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        # Get the instance to update
+        blog_post = self.get_object()
+
+        # Ensure the user owns the blog post
+        if blog_post.user != request.user:
+            raise PermissionDenied("You do not have permission to edit this blog post.")
+
+        return super().update(request, *args, **kwargs)
+    
+class SingleBlogView(RetrieveAPIView):
+    queryset = BlogPostRequest.objects.all()
+    serializer_class = BlogPostRequestSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = "slug"  # Use 'slug' for lookup
+
+    def get_queryset(self):
+        # Restrict access to the blogs owned by the authenticated user
+        return BlogPostRequest.objects.filter(user=self.request.user)
+    
+    
+
+class DeleteBlogView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, slug):
+        try:
+            # Fetch the blog post with the given slug and owned by the authenticated user
+            blog = BlogPostRequest.objects.get(slug=slug, user=request.user)
+            blog.delete()
+            return Response({"message": "Blog deleted successfully!"}, status=status.HTTP_200_OK)
+        except BlogPostRequest.DoesNotExist:
+            return Response(
+                {"error": "Blog not found or you do not have permission to delete it."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+    
