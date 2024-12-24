@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignupView , CreateBlogPostView , UserBlogsView , UpdateBlogPostView , SingleBlogView , DeleteBlogView
+from .views import SignupView , CreateBlogPostView , UserBlogsView , UpdateBlogPostView , SingleBlogView , DeleteBlogView , UserProfileView
 
 
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path('blogs/<slug:slug>/edit/', UpdateBlogPostView.as_view(), name='update_blog_post'),
     path('blogs/<slug:slug>/', SingleBlogView.as_view(), name='single_blog'),
     path('blogs/<slug:slug>/delete/', DeleteBlogView.as_view(), name='delete'),
+    path('account/', UserProfileView.as_view(), name='account'),
 ]

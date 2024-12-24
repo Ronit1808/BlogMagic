@@ -3,9 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import google.generativeai as genai
 from django.conf import settings
-from .serializers import BlogPostRequestSerializer
+from .serializers import BlogPostRequestSerializer, UserSerializer 
 from rest_framework import status
-from .models import BlogPostRequest , User ,UserProfile
+from .models import BlogPostRequest , User ,UserProfile 
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.hashers import make_password
@@ -13,6 +13,7 @@ from rest_framework.generics import ListAPIView , RetrieveUpdateAPIView , Retrie
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.parsers import MultiPartParser, FormParser
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
@@ -206,3 +207,17 @@ class DeleteBlogView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
     
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+    def put(self, request):
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
