@@ -99,7 +99,7 @@ const BlogPage = () => {
       />
       <div className="mt-6 text-center">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
           className="py-3 px-4 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600"
         >
           Back to Blog List

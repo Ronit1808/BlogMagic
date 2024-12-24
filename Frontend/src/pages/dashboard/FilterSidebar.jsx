@@ -1,21 +1,24 @@
 import React from "react";
 
+const TYPE_CHOICES = [
+  { value: 'ai', label: 'AI-Generated' },
+  { value: 'user', label: 'User-Created' }
+];
+
 const FilterSidebar = ({ filters, setFilters }) => {
   const handleChange = (category, value) => {
-    setFilters((prevFilters) => {
-      const updatedFilters = { ...prevFilters };
-      if (!updatedFilters[category]) updatedFilters[category] = [];
-      
-      if (updatedFilters[category].includes(value)) {
-        // Remove the value if already selected
-        updatedFilters[category] = updatedFilters[category].filter((item) => item !== value);
-      } else {
-        // Add the value if not already selected
-        updatedFilters[category].push(value);
-      }
+    const updatedFilters = { ...filters };
+    if (!updatedFilters[category]) updatedFilters[category] = [];
 
-      return updatedFilters;
-    });
+    const index = updatedFilters[category].indexOf(value);
+    if (index > -1) {
+      updatedFilters[category].splice(index, 1);
+    } else {
+      updatedFilters[category].push(value);
+    }
+
+    console.log('Updating filters:', updatedFilters);
+    setFilters(updatedFilters);
   };
 
   return (
@@ -26,7 +29,7 @@ const FilterSidebar = ({ filters, setFilters }) => {
       <div className="mb-4">
         <h4 className="text-white text-sm font-medium mb-2">Tone</h4>
         <div className="space-y-2">
-        {["neutral", "informal", "friendly", "professional"].map((tone) => (
+          {["neutral", "informal", "friendly", "professional"].map((tone) => (
             <label key={tone} className="flex items-center text-gray-300">
               <input
                 type="checkbox"
@@ -62,15 +65,15 @@ const FilterSidebar = ({ filters, setFilters }) => {
       <div className="mb-4">
         <h4 className="text-white text-sm font-medium mb-2">Type</h4>
         <div className="space-y-2">
-          {["AI Generated", "User Generated"].map((type) => (
-            <label key={type} className="flex items-center text-gray-300">
+          {TYPE_CHOICES.map(({ value, label }) => (
+            <label key={value} className="flex items-center text-gray-300">
               <input
                 type="checkbox"
                 className="mr-2"
-                checked={filters.type?.includes(type)}
-                onChange={() => handleChange("type", type)}
+                checked={filters.type?.includes(value)}
+                onChange={() => handleChange("type", value)}
               />
-              {type}
+              {label}
             </label>
           ))}
         </div>

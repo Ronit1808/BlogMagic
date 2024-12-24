@@ -10,6 +10,7 @@ import CreateBlogForm from "./pages/create/CreateBlogForm"
 import { AuthProvider } from "./components/context/AuthContext"
 import Protected from "./components/Protected"
 import BlogPage from "./pages/dashboard/BlogPage"
+import Account from "./pages/account/Account"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="dashboard/" element={<Protected> <DashboardPage/> </Protected>}/>
               <Route path="blog/:slug/" element={<BlogPage />} />
               <Route path="create/" element={<Protected><CreateBlogForm/> </Protected>}/>
+              <Route path="account/" element={<Protected><Account/> </Protected>}/>
             </Route>
           </Routes>
           </AuthProvider>
