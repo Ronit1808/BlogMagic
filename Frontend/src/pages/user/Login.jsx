@@ -21,7 +21,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-[#2b2779] p-8 rounded-lg shadow-lg max-w-md w-full">
+      <div className="bg-blue-700 p-8 rounded-lg shadow-lg max-w-md w-full">
         {/* Heading */}
         <h1 className="text-3xl font-bold text-white text-center">
           Welcome Back!
@@ -75,7 +75,7 @@ const Login = () => {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full bg-indigo-700 hover:bg-indigo-500 text-white py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300 transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:bg-indigo-500 text-white py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300 transform hover:scale-105"
             >
               Login
             </button>

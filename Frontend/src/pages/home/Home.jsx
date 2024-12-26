@@ -5,7 +5,7 @@ import DescriptionSection from './DescriptionSection'
 
 const Home = () => {
   return (
-    <div className='mt-24'>
+    <div className='mt-14 sm:mt-24'>
         <HeroSection/>
         <FeaturesSection/>
         <DescriptionSection/>

@@ -3,9 +3,8 @@ import illustration from '../../assets/illustration.svg'
 
 const FeaturesSection = () => {
   return (
-    <div className="text-white py-10 mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
-        {/* Image Section */}
+    <div className="text-white py-10 mt-8 sm:mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
         <div className="w-full lg:w-1/2 mb-12 lg:mb-0 group">
           <img
             src={illustration}
@@ -16,13 +15,13 @@ const FeaturesSection = () => {
 
         {/* Text Section */}
         <div className="w-full lg:w-1/2 lg:pl-12 text-center lg:text-left">
-          <h2 className="text-3xl sm:text-4xl font-bold">
+          <h2 className="text-xl sm:text-4xl font-bold">
             Effortless Content Creation
           </h2>
-          <p className="mt-4 text-lg text-gray-300">
+          <p className="mt-4 text-base sm:text-lg text-gray-300">
             BlogMagic combines advanced AI with intuitive design to help you create content faster, better, and smarter. Focus on your ideas, and we’ll handle the rest.
           </p>
-          <ul className="mt-6 space-y-4">
+          <ul className="mt-6 text-sm sm:text-base space-y-4">
             <li className="flex items-start">
               <svg
                 className="h-6 w-6 text-indigo-500 mr-3"

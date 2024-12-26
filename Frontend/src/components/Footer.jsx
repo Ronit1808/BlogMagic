@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
           <div>
-            <h3 className="text-lg font-semibold">About BlogMagic</h3>
+            <h3 className="text-base sm:text-lg font-semibold">About BlogMagic</h3>
             <p className="mt-4 text-gray-300">
               BlogMagic is an AI-powered platform to create stunning, engaging, 
               and personalized blog content effortlessly. Start your journey with us today.
@@ -17,8 +17,8 @@ const Footer = () => {
 
           {/* Links Section */}
           <div>
-            <h3 className="text-lg font-semibold">Quick Links</h3>
-            <ul className="mt-4 space-y-2">
+            <h3 className="text-base sm:text-lg  font-semibold">Quick Links</h3>
+            <ul className="mt-4 text-sm space-y-2">
               <li>
                 <a
                   href="/features"
@@ -56,7 +56,7 @@ const Footer = () => {
 
           {/* Newsletter Section */}
           <div>
-            <h3 className="text-lg font-semibold">Stay Connected</h3>
+            <h3 className="text-base sm:text-lg  font-semibold">Stay Connected</h3>
             <form className="mt-4">
               <input
                 type="email"
@@ -75,10 +75,10 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="mt-8 border-t border-gray-600 pt-4 flex flex-col sm:flex-row justify-between">
-          <p className="text-gray-300 text-sm">
+          <p className="text-gray-300 text-xs sm:text-sm">
             &copy; {new Date().getFullYear()} BlogMagic. All rights reserved.
           </p>
-          <div className="flex space-x-4 mt-4 sm:mt-0">
+          <div className="flex text-base sm:text-lg space-x-4 mt-4 sm:mt-0">
             <a
               href="https://facebook.com"
               className="hover:text-indigo-500 transition duration-200"
