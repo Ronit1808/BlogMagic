@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import google.generativeai as genai
 from django.conf import settings
-from .serializers import BlogPostRequestSerializer, UserSerializer 
+from .serializers import BlogPostRequestSerializer, UserSerializer ,UserProfileSerializer
 from rest_framework import status
 from .models import BlogPostRequest , User ,UserProfile 
 from rest_framework.exceptions import ValidationError
@@ -150,7 +150,6 @@ class UserBlogsView(ListAPIView):
         
     }
 
-    # Fields available for ordering
     ordering_fields = ['created_at', 'updated_at']
 
     # Fields available for search
@@ -160,12 +159,14 @@ class UserBlogsView(ListAPIView):
         # Restrict blogs to the authenticated user
         return BlogPostRequest.objects.filter(user=self.request.user)
     
+    
+    
 class UpdateBlogPostView(RetrieveUpdateAPIView):
     queryset = BlogPostRequest.objects.all()
     serializer_class = BlogPostRequestSerializer
     permission_classes = [IsAuthenticated]
-    lookup_field = "slug"  # Use 'slug' instead of 'id'
-
+    lookup_field = "slug" 
+    
     def get_queryset(self):
         # Restrict access to the blogs owned by the authenticated user
         return BlogPostRequest.objects.filter(user=self.request.user)

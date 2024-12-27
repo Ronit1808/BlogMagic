@@ -35,9 +35,10 @@ class UserSerializer(serializers.ModelSerializer):
         
 
 class BlogPostRequestSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
     class Meta:
         model = BlogPostRequest
         fields = ['id', 'user', 'topic', 'slug', 'tone', 'length',
-            'content_method', 'content', 'status', 'created_at', 'updated_at']
+            'content_method', 'content', 'status', 'created_at', 'updated_at' , 'user']
         
         read_only_fields = ['id', 'slug', 'status', 'created_at', 'updated_at']
