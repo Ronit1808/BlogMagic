@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
-      throw error; // Allow the component to handle the error (e.g., show an alert)
+      throw error; 
     }
   };
 
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("authTokens", JSON.stringify(response.data));
       } catch (error) {
         console.error("Token refresh failed:", error.response?.data || error.message);
-        logoutUser(); // Log out if refresh fails
+        logoutUser(); 
       }
     } else {
       logoutUser();

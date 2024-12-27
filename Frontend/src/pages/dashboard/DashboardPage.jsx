@@ -101,9 +101,12 @@ const DashboardPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-bl from-[#0f172a] via-[#1e1a78] to-[#0f172a] px-4 sm:px-6 lg:px-8 py-8">
-      <SearchBarAndCreate  searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-      <div className="flex flex-col lg:flex-row mt-8 gap-8">
-        <FilterSidebar filters={filters} setFilters={handleFilterChange} />
+      <div className="flex flex-row max-w-7xl px-4 items-center ">
+        <FilterSidebar  filters={filters} setFilters={handleFilterChange} />
+        <SearchBarAndCreate  searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+      </div>
+      <div className=" flex flex-col px-2 lg:flex-row lg:justify-around mt-10">
+       
         <BlogCardsContainer blogs={blogs} loading={loading} />
       </div>
     </div>

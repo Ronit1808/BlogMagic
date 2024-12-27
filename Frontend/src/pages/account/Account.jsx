@@ -84,9 +84,7 @@ const Account = () => {
           headers: { "Content-Type": "multipart/form-data" },
         });
         
-        // Update userDetails with response data
         setUserDetails(response.data);
-        // Update preview URL with new profile picture URL
         setPreviewUrl(response.data.profile.profile_picture);
         setEditMode(false);
       } catch (error) {

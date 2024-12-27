@@ -39,12 +39,12 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-[#2b2779] p-8 rounded-lg shadow-lg max-w-md w-full">
+      <div className="bg-slate-100 p-8 rounded-lg shadow-lg max-w-md w-full">
         {/* Heading */}
-        <h1 className="text-3xl font-bold text-white text-center">
+        <h1 className="text-3xl font-bold  text-center">
           Create Your Account
         </h1>
-        <p className="mt-2 text-gray-300 text-center">
+        <p className="mt-2 text-center">
           Join BlogMagic and start your blogging journey!
         </p>
         {error && (
@@ -62,7 +62,7 @@ const Register = () => {
         <form onSubmit={handleSignup} className="mt-6 space-y-4">
           {/* Full Name */}
           <div>
-            <label htmlFor="username" className="block text-sm text-white">
+            <label htmlFor="username" className="block text-sm ">
               Username
             </label>
             <input
@@ -78,7 +78,7 @@ const Register = () => {
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm text-white">
+            <label htmlFor="email" className="block text-sm ">
               Email Address
             </label>
             <input
@@ -94,7 +94,7 @@ const Register = () => {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm text-white">
+            <label htmlFor="password" className="block text-sm ">
               Password
             </label>
             <input
@@ -112,7 +112,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block text-sm text-white"
+              className="block text-sm "
             >
               Confirm Password
             </label>
@@ -131,7 +131,7 @@ const Register = () => {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full bg-indigo-700 hover:bg-indigo-500 text-white py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300 transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:bg-indigo-500 text-white py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300 transform hover:scale-105"
             >
               Register Now
             </button>
@@ -139,7 +139,7 @@ const Register = () => {
         </form>
 
         {/* Already have an account */}
-        <p className="mt-6 text-center text-gray-300">
+        <p className="mt-6 text-center ">
           Already have an account?{" "}
           <a href="/login" className="text-indigo-500 hover:text-indigo-400">
             Login here

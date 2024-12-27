@@ -17,24 +17,24 @@ const BlogResponse = ({
 }) => {
   return (
             <div>
-              <div className="text-center text-white font-semibold text-2xl">
+              <div className="text-center text-white font-semibold text-xl mb-4 sm:text-2xl">
                 {formData.topic}
               </div>
-              <p className="text-left px-6 text-green-300 pr-10 italic">
+              <p className="text-left px-2 text-sm sm:text-lg sm:px-6 text-green-300 pr-10 italic">
                 Tone : {formData.tone}
               </p>
-              <p className="text-left px-6 mb-4 text-green-300 pr-10 italic">
+              <p className="text-left px-2 text-sm sm:text-lg sm:px-6 mb-4 text-green-300 pr-10 italic">
                 Length : {formData.length}
               </p>
-              <div className="flex justify-end items-center text-gray-300 pr-10 gap-4 mb-4">
+              <div className="flex justify-end items-center text-xs sm:text-lg text-gray-300 pr-2 sm:pr-8 gap-4 mb-4">
                 <div
-                  className="flex items-center cursor-pointer"
+                  className="flex items-center cursor-pointer  hover:text-white"
                   onClick={handleCopyCode}
                 >
                   <FaCopy className="mr-2" /> Copy 
                 </div>
                 <div
-                  className="flex items-center cursor-pointer"
+                  className="flex items-center cursor-pointer  hover:text-white"
                   onClick={toggleEdit}
                 >
                   {isEditing ? <FaTimes className="mr-2" /> : <FaPen className="mr-2" />}
@@ -54,7 +54,7 @@ const BlogResponse = ({
                     onChange={(e) =>
                       setResponseData({ ...responseData, content: e.target.value })
                     }
-                    className="block w-full px-4 py-3 rounded-lg shadow-md border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                    className="block w-full px-2 sm:px-4 py-3 rounded-lg shadow-md border border-gray-300 focus:ring-2 focus:ring-indigo-500"
                     rows="8"
                   />
                 ) : (
@@ -80,7 +80,7 @@ const BlogResponse = ({
                 )}
               </div>
 
-              <div className="mt-6 flex justify-between">
+              <div className="mt-6 flex px-4 justify-between">
               {slug ? (
                   <button
                     onClick={handleDelete}
@@ -91,14 +91,14 @@ const BlogResponse = ({
                 ) : (
                   <button
                     onClick={handleCreateAnother}
-                    className="py-3 px-4 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
+                    className="py-3 px-4 font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
                   >
                     Create Another
                   </button>
                 )}
                 <button
                   onClick={handleSave}
-                  className="py-3 px-4 bg-gradient-to-r from-green-500 via-teal-500 to-cyan-500 hover:from-cyan-500 hover:via-teal-500 hover:to-green-500 text-white font-semibold rounded-lg"
+                  className="py-3 px-4 font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
                 >
                   Save
                 </button>
