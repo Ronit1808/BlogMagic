@@ -31,17 +31,17 @@ def generate_blog_content_with_genai(topic, tone, length):
         str: The generated content or an error message.
     """
     try:
-        # Create a detailed prompt incorporating tone and length
+        
         detailed_prompt = (
             f"Write a {tone}, {length} blog post on the topic: {topic}. "
-            "Make it engaging, informative, and well-structured."
+            "Make it engaging, informative, and well-structured. And don't add any special characters or emojis in the content."
         )
 
-        # Use the Generative AI model
+     
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(detailed_prompt)
 
-        # Extract and return the generated text
+       
         return response.text if response else "No content generated."
     except Exception as e:
         return f"An error occurred while generating content: {str(e)}"
@@ -62,13 +62,13 @@ class CreateBlogPostView(APIView):
             content_method = serializer.validated_data.get('content_method')
             content = serializer.validated_data.get('content', None)
 
-            # Generate content if method is 'ai'
+            
             if content_method == 'ai':
                 content = generate_blog_content_with_genai(topic, tone, length)
 
-            # Save the blog post
+          
             blog_post = BlogPostRequest.objects.create(
-                user=request.user if request.user.is_authenticated else None,  # Save user if available
+                user=request.user if request.user.is_authenticated else None,  
                 topic=topic,
                 tone=tone,
                 length=length,
@@ -105,7 +105,7 @@ class SignupView(APIView):
         email = data.get('email')
         password = data.get('password')
 
-        # Validate input
+       
         if not username or not email or not password:
             raise ValidationError("All fields (username, email, password) are required.")
         if User.objects.filter(username=username).exists():
@@ -113,12 +113,11 @@ class SignupView(APIView):
         if User.objects.filter(email=email).exists():
             raise ValidationError("A user with this email already exists.")
 
-        # Create user
         try:
             user = User.objects.create(
                 username=username,
                 email=email,
-                password=make_password(password),  # Hash the password
+                password=make_password(password),  
             )
            
             UserProfile.objects.create(user=user)
@@ -139,10 +138,10 @@ class UserBlogsView(ListAPIView):
     serializer_class = BlogPostRequestSerializer
     permission_classes = [IsAuthenticated]
 
-    # Add filters, ordering, and pagination
+  
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
 
-    # Fields available for filtering
+    
     filterset_fields = {
         'tone': ['exact', 'in'],       
         'length': ['exact', 'in'], 
@@ -152,11 +151,10 @@ class UserBlogsView(ListAPIView):
 
     ordering_fields = ['created_at', 'updated_at']
 
-    # Fields available for search
+   
     search_fields = ['topic', 'content']
 
     def get_queryset(self):
-        # Restrict blogs to the authenticated user
         return BlogPostRequest.objects.filter(user=self.request.user)
     
     
@@ -168,14 +166,12 @@ class UpdateBlogPostView(RetrieveUpdateAPIView):
     lookup_field = "slug" 
     
     def get_queryset(self):
-        # Restrict access to the blogs owned by the authenticated user
         return BlogPostRequest.objects.filter(user=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        # Get the instance to update
         blog_post = self.get_object()
 
-        # Ensure the user owns the blog post
+       
         if blog_post.user != request.user:
             raise PermissionDenied("You do not have permission to edit this blog post.")
 
@@ -185,10 +181,9 @@ class SingleBlogView(RetrieveAPIView):
     queryset = BlogPostRequest.objects.all()
     serializer_class = BlogPostRequestSerializer
     permission_classes = [IsAuthenticated]
-    lookup_field = "slug"  # Use 'slug' for lookup
+    lookup_field = "slug"  
 
     def get_queryset(self):
-        # Restrict access to the blogs owned by the authenticated user
         return BlogPostRequest.objects.filter(user=self.request.user)
     
     
@@ -198,7 +193,6 @@ class DeleteBlogView(APIView):
 
     def delete(self, request, slug):
         try:
-            # Fetch the blog post with the given slug and owned by the authenticated user
             blog = BlogPostRequest.objects.get(slug=slug, user=request.user)
             blog.delete()
             return Response({"message": "Blog deleted successfully!"}, status=status.HTTP_200_OK)
