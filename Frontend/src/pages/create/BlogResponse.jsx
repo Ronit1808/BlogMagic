@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCopy, FaPen, FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const BlogResponse = ({
   responseData,
@@ -13,8 +14,19 @@ const BlogResponse = ({
   handleSave,
   setResponseData,
   handleDelete,
+  handleNavigation,
   slug
 }) => {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if(slug){
+      handleNavigation("/dashboard");
+    }
+    else{
+      navigate("/dashboard");
+    }
+  }
   return (
             <div>
               <div className="text-center text-white font-semibold text-xl mb-4 sm:text-2xl">
@@ -84,21 +96,27 @@ const BlogResponse = ({
               {slug ? (
                   <button
                     onClick={handleDelete}
-                    className="py-3 px-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600"
+                    className="py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-base bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600"
                   >
                     Delete
                   </button>
                 ) : (
                   <button
                     onClick={handleCreateAnother}
-                    className="py-3 px-4 font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
+                    className="py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
                   >
                     Create Another
                   </button>
                 )}
                 <button
+                  onClick={handleBack}
+                  className="py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-base bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600"
+                >
+                  Back 
+                </button>
+                <button
                   onClick={handleSave}
-                  className="py-3 px-4 font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
+                  className="py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
                 >
                   Save
                 </button>

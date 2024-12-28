@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import AuthContext from "./context/AuthContext";
 import useOutsideClick from "../../useOutsideClick";
+import { RxMagicWand } from "react-icons/rx";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,8 +29,9 @@ const NavBar = () => {
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/">
-                <span className="text-2xl font-bold text-white">BlogMagic</span>
+                <span className="text-xl sm:text-2xl font-bold text-white">BlogMagic</span>
               </Link>
+              <span className="text-xl sm:text-2xl pt-1 pl-2 "> <RxMagicWand /> </span>
             </div>
 
             {/* Desktop Menu */}

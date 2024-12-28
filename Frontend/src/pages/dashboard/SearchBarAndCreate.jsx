@@ -17,7 +17,7 @@ const SearchBarAndCreate = ({ searchQuery, setSearchQuery }) => {
   };
 
   return (
-    <div className="flex basis-4/5 flex-row justify-evenly" >
+    <div className="flex basis-4/5 flex-row justify-around items-center" >
       {/* Search Bar */}
       <input
         type="text"
@@ -30,7 +30,7 @@ const SearchBarAndCreate = ({ searchQuery, setSearchQuery }) => {
       {/* Create Blog Button */}
       <Link to='/create'>
         <button
-            className="ml-4 py-3 px-4 font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
+            className="ml-8 py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
         >
             Create
         </button>

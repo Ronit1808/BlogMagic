@@ -11,18 +11,20 @@ import { AuthProvider } from "./components/context/AuthContext"
 import Protected from "./components/Protected"
 import BlogPage from "./pages/dashboard/BlogPage"
 import Account from "./pages/account/Account"
+import ScrollToTop from "./components/ScrollToTop"
 
 function App() {
   return (
       <BrowserRouter>
         <AuthProvider>
+        <ScrollToTop/>
           <Routes>
             <Route path='/' element={<MainLayout/>}>
               <Route index element={<Home/>}/>
               <Route path="login/" element={<Login/>}/>
               <Route path="register/" element={<Register/>}/>
               <Route path="dashboard/" element={<Protected> <DashboardPage/> </Protected>}/>
-              <Route path="blog/:slug/" element={<BlogPage />} />
+              <Route path="blog/:slug/" element={<Protected><BlogPage /></Protected>} />
               <Route path="create/" element={<Protected><CreateBlogForm/> </Protected>}/>
               <Route path="account/" element={<Protected><Account/> </Protected>}/>
             </Route>

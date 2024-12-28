@@ -33,7 +33,7 @@ const FilterSidebar = ({ filters, setFilters }) => {
     <div className="flex basis-1/5 justify-around">
       {/* Toggle Button for Mobile */}
       <button
-        className="mr-4 py-3 px-4 font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
+        className="mr-8 py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-base text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
         onClick={() => setIsOpen(true)}
       >
         Filters

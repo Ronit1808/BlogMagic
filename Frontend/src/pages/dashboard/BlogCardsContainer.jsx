@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import BlogCard from "./BlogCard";
+import Loading from "../../components/Loading";
 
 const BlogCardsContainer = ({blogs , loading}) => {
  
 
   // Loader display while fetching data
   if (loading) {
-    return <p>Loading blogs...</p>;
+    return <Loading />;
   }
 
   return (

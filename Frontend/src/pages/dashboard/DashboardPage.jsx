@@ -101,7 +101,7 @@ const DashboardPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-bl from-[#0f172a] via-[#1e1a78] to-[#0f172a] px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-row max-w-7xl px-4 items-center ">
+      <div className="flex flex-row max-w-7xl px-4 sm:px-6 items-center ">
         <FilterSidebar  filters={filters} setFilters={handleFilterChange} />
         <SearchBarAndCreate  searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       </div>

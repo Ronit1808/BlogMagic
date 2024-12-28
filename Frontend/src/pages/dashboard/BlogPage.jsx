@@ -184,16 +184,10 @@ const BlogPage = () => {
         handleSave={handleSave}
         handleDelete={confirmDelete}
         handleCreateAnother={() => handleNavigation("/create")} 
+        handleNavigation={handleNavigation}
         setResponseData={setBlog}
       />
-      <div className="mt-6 text-center">
-        <button
-          onClick={() => handleNavigation("/dashboard")}
-          className="py-3 px-4 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600"
-        >
-          Back 
-        </button>
-      </div>
+      
     </div>
   );
 };
