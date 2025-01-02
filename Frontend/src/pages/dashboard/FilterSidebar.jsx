@@ -6,12 +6,11 @@ const TYPE_CHOICES = [
   { value: "user", label: "User-Created" },
 ];
 
-const FilterSidebar = ({ filters, setFilters }) => {
+const FilterSidebar = ({ filters, setFilters , handleClearFilters }) => {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef();
-  const excludeRefs = []; // Add any additional refs to exclude from outside clicks
-
-  // Use custom hook for outside click detection
+  const excludeRefs = []; 
+ 
   useOutsideClick(sidebarRef, () => setIsOpen(false), excludeRefs);
 
   const handleChange = (category, value) => {
@@ -65,7 +64,7 @@ const FilterSidebar = ({ filters, setFilters }) => {
                 <input
                   type="checkbox"
                   className="mr-2"
-                  checked={filters.tone?.includes(tone)}
+                  checked={filters.tone?.includes(tone) || false}
                   onChange={() => handleChange("tone", tone)}
                 />
                 {tone.charAt(0).toUpperCase() + tone.slice(1)}
@@ -84,7 +83,7 @@ const FilterSidebar = ({ filters, setFilters }) => {
                   type="checkbox"
                   className="mr-2"
                   checked={filters.length?.includes(length)}
-                  onChange={() => handleChange("length", length)}
+                  onChange={() => handleChange("length", length)|| false}
                 />
                 {length.charAt(0).toUpperCase() + length.slice(1)}
               </label>
@@ -101,7 +100,7 @@ const FilterSidebar = ({ filters, setFilters }) => {
                 <input
                   type="checkbox"
                   className="mr-2"
-                  checked={filters.type?.includes(value)}
+                  checked={filters.type?.includes(value) || false}
                   onChange={() => handleChange("type", value)}
                 />
                 {label}
@@ -109,6 +108,12 @@ const FilterSidebar = ({ filters, setFilters }) => {
             ))}
           </div>
         </div>
+        <button
+          onClick={handleClearFilters}
+          className="mt-6 py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-base bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 w-full"
+        >
+          Remove Filters
+        </button>
       </div>
     </div>
   );

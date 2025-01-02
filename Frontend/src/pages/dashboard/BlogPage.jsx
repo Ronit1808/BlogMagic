@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import BlogResponse from "../create/BlogResponse";
 import api from "../../api";
 import { toast } from "react-toastify";
+import Loading from "../../components/Loading";
+
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -18,7 +20,7 @@ const BlogPage = () => {
       try {
         const response = await api.get(`blogs/${slug}/`);
         setBlog(response.data);
-        setOriginalContent(response.data.content); // Store original content
+        setOriginalContent(response.data.content); 
       } catch (error) {
         console.error("Failed to fetch blog:", error.response?.data || error.message);
       } finally {
@@ -92,8 +94,8 @@ const BlogPage = () => {
                 className="py-2 px-6 bg-indigo-500 text-white font-medium rounded-lg hover:bg-indigo-600"
                 onClick={() => {
                   closeToast();
-                  handleSave(); // Save changes
-                  navigate(path); // Navigate to the new page
+                  handleSave(); 
+                  navigate(path); 
                 }}
               >
                 Save
@@ -121,7 +123,7 @@ const BlogPage = () => {
         }
       );
     } else {
-      navigate(path); // Navigate immediately if no changes
+      navigate(path); 
     }
   };
 
@@ -158,7 +160,7 @@ const BlogPage = () => {
   const toggleShowContent = () => setShowFullContent(!showFullContent);
 
   if (loading) {
-    return <p>Loading blog...</p>;
+    return <Loading/>
   }
 
   if (!blog) {
@@ -166,7 +168,7 @@ const BlogPage = () => {
   }
 
   return (
-    <div className="container max-w-5xl w-full rounded-lg px-3 sm:px-10 mt-4 bg-[#1e1a78] mx-auto py-8">
+    <div className="container max-w-5xl w-full rounded-lg px-3 sm:px-10 mt-4 mb-8 bg-[#1e1a78] mx-auto py-8">
       <BlogResponse
         responseData={blog}
         formData={{

@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [authTokens]);
 
-  // Check loading state
+
   useEffect(() => {
     setLoading(false);
   }, []);
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
     authTokens,
     loginUser,
     logoutUser,
-    setAuthTokens, // For manual updates if necessary
+    setAuthTokens, 
   };
 
   return (

@@ -1,4 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { FaFacebook } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -20,36 +25,36 @@ const Footer = () => {
             <h3 className="text-base sm:text-lg  font-semibold">Quick Links</h3>
             <ul className="mt-4 text-sm space-y-2">
               <li>
-                <a
-                  href="/features"
+                <Link
+                  to="/"
                   className="hover:text-indigo-500 transition duration-200"
                 >
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/pricing"
+                <Link
+                  to="/"
                   className="hover:text-indigo-500 transition duration-200"
                 >
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/blog"
+                <Link
+                  to="/"
                   className="hover:text-indigo-500 transition duration-200"
                 >
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/contact"
+                <Link
+                  to="/"
                   className="hover:text-indigo-500 transition duration-200"
                 >
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -83,25 +88,25 @@ const Footer = () => {
               href="https://facebook.com"
               className="hover:text-indigo-500 transition duration-200"
             >
-              Facebook
+              <FaFacebook />
             </a>
             <a
               href="https://twitter.com"
               className="hover:text-indigo-500 transition duration-200"
             >
-              Twitter
+              <FaXTwitter />
             </a>
             <a
               href="https://instagram.com"
               className="hover:text-indigo-500 transition duration-200"
             >
-              Instagram
+              <FaInstagram />
             </a>
             <a
               href="https://linkedin.com"
               className="hover:text-indigo-500 transition duration-200"
             >
-              LinkedIn
+              <FaLinkedin />
             </a>
           </div>
         </div>

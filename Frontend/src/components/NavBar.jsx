@@ -13,12 +13,10 @@ const NavBar = () => {
   const buttonRef = useRef(); 
   const location = useLocation();
 
-  // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
 
-  // Use custom hook for outside clicks with exclusion
   useOutsideClick(menuRef, () => setIsMenuOpen(false), [buttonRef]);
 
   return (
@@ -29,9 +27,9 @@ const NavBar = () => {
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/">
-                <span className="text-xl sm:text-2xl font-bold text-white">BlogMagic</span>
+                <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">BlogMagic</span>
               </Link>
-              <span className="text-xl sm:text-2xl pt-1 pl-2 "> <RxMagicWand /> </span>
+              <span className="text-lg sm:text-xl  pt-2 pl-2 "> <RxMagicWand /> </span>
             </div>
 
             {/* Desktop Menu */}

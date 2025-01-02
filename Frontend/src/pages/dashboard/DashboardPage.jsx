@@ -20,6 +20,14 @@ const DashboardPage = () => {
     setFilters(newFilters);
   };
 
+  const handleClearFilters = () => {
+    setFilters({
+      tone: [],
+      length: [],
+      type: []
+    }); 
+  };
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -71,12 +79,11 @@ const DashboardPage = () => {
       try {
         const queryParams = new URLSearchParams();
         
-        // Add search query
+       
         if (searchQuery) {
           queryParams.append('search', searchQuery);
         }
 
-        // Add filters
         Object.entries(filters).forEach(([key, values]) => {
           if (values && values.length > 0) {
             const paramKey = key === 'type' ? 'content_method__in' : `${key}__in`;
@@ -102,7 +109,7 @@ const DashboardPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-bl from-[#0f172a] via-[#1e1a78] to-[#0f172a] px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-row max-w-7xl px-4 sm:px-6 items-center ">
-        <FilterSidebar  filters={filters} setFilters={handleFilterChange} />
+        <FilterSidebar  filters={filters} setFilters={handleFilterChange} handleClearFilters={handleClearFilters} />
         <SearchBarAndCreate  searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       </div>
       <div className=" flex flex-col px-2 lg:flex-row lg:justify-around mt-10">

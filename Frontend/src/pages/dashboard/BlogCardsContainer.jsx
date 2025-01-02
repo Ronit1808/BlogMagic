@@ -5,15 +5,13 @@ import Loading from "../../components/Loading";
 
 const BlogCardsContainer = ({blogs , loading}) => {
  
-
-  // Loader display while fetching data
   if (loading) {
     return <Loading />;
   }
 
   return (
     <div>
-      {/* Blog Cards */}
+      {blogs.length > 0 ? (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-14">
         {blogs.map((blog) => (
           <Link to={`/blog/${blog.slug}`} key={blog.slug}>
@@ -26,7 +24,11 @@ const BlogCardsContainer = ({blogs , loading}) => {
             />
           </Link>
         ))}
-      </div>
+      </div> ) : (
+        <div className="text-center text-lg  font-semibold text-white mt-8">
+          No blogs Found
+        </div>
+      )}
     </div>
   );
 };

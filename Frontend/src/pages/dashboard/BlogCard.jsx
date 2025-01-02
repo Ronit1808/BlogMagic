@@ -1,18 +1,17 @@
 import React from "react";
 
 const BlogCard = ({ title, content, author, date, profile_image, onClick }) => {
-  // Determine content source
   const contentSource = author === "ai" ? "AI Generated" : "User Created";
 
   return (
     <div
       className="bg-gradient-to-r from-violet-200 to-pink-200 p-6 rounded-lg shadow-lg hover:shadow-xl max-w-sm min-h-[220px] transition-transform duration-300 transform hover:-translate-y-2 cursor-pointer"
-      onClick={onClick} // Trigger to view full content
+      onClick={onClick} 
     >
       {/* Profile Image and Title */}
       <div className="flex items-center gap-3 mb-4">
         <img
-          src={profile_image || "https://via.placeholder.com/40"} // Placeholder if no profile image
+          src={profile_image || "https://via.placeholder.com/40"} 
           alt={`${author} profile`}
           className="w-12 h-12 rounded-full object-cover shadow-md"
         />
