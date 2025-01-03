@@ -19,17 +19,6 @@ genai.configure(api_key=settings.GEMINI_API_KEY)
 
 
 def generate_blog_content_with_genai(topic, tone, length):
-    """
-    Generate blog content using the Google Generative AI API.
-
-    Args:
-        topic (str): The topic for the blog post.
-        tone (str): The tone of the blog post (e.g., friendly, professional).
-        length (str): The desired length of the blog post (e.g., short, medium, long).
-
-    Returns:
-        str: The generated content or an error message.
-    """
     try:
         
         detailed_prompt = (

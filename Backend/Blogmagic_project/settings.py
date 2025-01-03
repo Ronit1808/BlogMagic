@@ -16,16 +16,18 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 from datetime import timedelta
+from decouple import config
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v%gc10a_ym5os-))0x!!f@y=c4gq2zta(@6vwtoc66x@qoe37y'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -83,11 +85,11 @@ WSGI_APPLICATION = 'Blogmagic_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blogmagic',           
-        'USER': 'blogmagicuser',       
-        'PASSWORD': 'roni18',     
-        'HOST': 'localhost',            
-        'PORT': '5432',                 
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', cast=int),
     }
 }
 
@@ -145,7 +147,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GEMINI_API_KEY = 'AIzaSyAge_b19GWflHMnfbRM1ehBh4pi8cMF-PQ'
+GEMINI_API_KEY = config('GEMINI_API_KEY')
 
 
 CORS_ALLOWED_ORIGINS = [
