@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import Loading from '../../components/Loading';
 
-const baseURL = 'http://localhost:8000/';
+const baseURL = 'https://blogmagic.onrender.com/';
 const DEFAULT_PROFILE_PIC = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
 
 const Account = () => {
