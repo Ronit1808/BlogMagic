@@ -162,7 +162,7 @@ GEMINI_API_KEY = config('GEMINI_API_KEY')
 
 
 CORS_ALLOWED_ORIGINS = [
-    "https://blogmagic.netlify.app"
+    "https://blogmagic.netlify.app",
     "http://localhost:5173",  # Frontend origin
     "http://127.0.0.1:5173",  # Alternative local address
 ]
