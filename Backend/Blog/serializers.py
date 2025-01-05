@@ -3,9 +3,16 @@ from .models import UserProfile , BlogPostRequest
 from django.contrib.auth.models import User
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    profile_picture_url = serializers.SerializerMethodField()
+
     class Meta:
         model = UserProfile
-        fields = ['profile_picture' , 'bio']
+        fields = ['profile_picture', 'profile_picture_url', 'bio']
+
+    def get_profile_picture_url(self, obj):
+        if obj.profile_picture:
+            return obj.profile_picture.url 
+        return None
 
 
 class UserSerializer(serializers.ModelSerializer):
