@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import Loading from '../../components/Loading';
-
-const baseURL = 'https://blogmagic.onrender.com/';
 const DEFAULT_PROFILE_PIC = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
 
 const Account = () => {
@@ -14,19 +12,15 @@ const Account = () => {
     profile: {
       bio: '',
       profile_picture: null
-    }
+    },
+    profile_picture_url: DEFAULT_PROFILE_PIC,
   });
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(DEFAULT_PROFILE_PIC);
 
-  const getImageUrl = (path) => {
-    if (!path) return DEFAULT_PROFILE_PIC;
-    const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
-    return `${baseURL}${normalizedPath}`;
-  };
-
+  
   useEffect(() => {
     fetchUserDetails();
   }, []);
@@ -36,7 +30,7 @@ const Account = () => {
       const response = await api.get('account/');
       console.log(response.data);
       setUserDetails(response.data);
-      setPreviewUrl(response.data.profile.profile_picture);
+      setPreviewUrl(response.data.profile.profile_picture_url  || DEFAULT_PROFILE_PIC);
       setLoading(false);
     } catch (error) {
       console.error('Failed to fetch user details:', error);
@@ -86,7 +80,7 @@ const Account = () => {
         });
         
         setUserDetails(response.data);
-        setPreviewUrl(response.data.profile.profile_picture);
+        setPreviewUrl(response.data.profile.profile_picture_url || DEFAULT_PROFILE_PIC);
         setEditMode(false);
       } catch (error) {
         console.error("Failed to update profile:", error);
@@ -107,7 +101,7 @@ const Account = () => {
             <div className="absolute -bottom-16 left-8">
               <div className="relative group">
               <img
-                src={getImageUrl(previewUrl || userDetails.profile.profile_picture)}
+                src={previewUrl}
                 alt="Profile"
                 className="w-32 h-32 rounded-full border-4 border-white object-cover shadow-lg transition-transform group-hover:scale-105"
                 onError={(e) => {
