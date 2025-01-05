@@ -18,7 +18,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 from datetime import timedelta
 from decouple import config
-import ast
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': config('CLOUDINARY_URL')
+}
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 
 
@@ -148,7 +159,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE= "whitenoise.storage.CompressedManifestStaticFilesStorage"
-MEDIA_URL = '/media/'
+MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUDINARY_URL"].split("@")[1]}/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
@@ -171,3 +182,5 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1)
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
