@@ -60,8 +60,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "Blog",
     "whitenoise",
+    'cloudinary',
     'cloudinary_storage',
-    'cloudinary'
     
 ]
 
