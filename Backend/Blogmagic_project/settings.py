@@ -22,10 +22,11 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': config('CLOUDINARY_URL')
-}
+cloudinary.config( 
+    cloud_name = "dcevhgv7l", 
+    api_key = "673448644973349", 
+    api_secret = "7RBiZ9DDJYQil8CpYkDF1_37pKY",
+)
 
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -58,7 +59,9 @@ INSTALLED_APPS = [
     'django_filters',
     "corsheaders",
     "Blog",
-    "whitenoise"
+    "whitenoise",
+    'cloudinary_storage',
+    'cloudinary'
     
 ]
 
@@ -159,7 +162,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE= "whitenoise.storage.CompressedManifestStaticFilesStorage"
-MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUDINARY_URL"].split("@")[1]}/'
+MEDIA_URL = 'https://res.cloudinary.com/dcevhgv7l/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
