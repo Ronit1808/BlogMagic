@@ -19,7 +19,7 @@ const BlogCardsContainer = ({blogs , loading}) => {
               title={blog.topic}
               content={blog.content || "No content available"}
               author={blog.content_method} 
-              profile_image={blog.user.profile.profile_picture}
+              profile_image={blog.user.profile.profile_picture_url}
               date={new Date(blog.created_at).toLocaleDateString()} 
             />
           </Link>
