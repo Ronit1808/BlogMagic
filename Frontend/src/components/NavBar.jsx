@@ -29,7 +29,7 @@ const NavBar = () => {
               <Link to="/">
                 <span className="text-xl sm:text-2xl font-bold text-white hover:bg-gradient-to-r from-purple-500 to-indigo-500 hover:bg-clip-text hover:text-transparent">BlogMagic</span>
               </Link>
-              <span className="text-lg sm:text-xl  pt-2 pl-2 "> <IoSparklesOutline /> </span>
+              <span className="text-lg sm:text-xl  pt-1 pl-2 "> <IoSparklesOutline /> </span>
             </div>
 
             {/* Desktop Menu */}
