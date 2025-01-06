@@ -8,12 +8,14 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+    setLoading(true); 
+    setError(null);
     try {
       await loginUser(username, password); 
       navigate("/");
@@ -31,7 +33,6 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="bg-slate-100 p-8 rounded-lg shadow-lg max-w-md w-full">
-        {/* Heading */}
         <h1 className="text-3xl font-bold text-center">
           Welcome Back!
         </h1>
@@ -48,7 +49,6 @@ const Login = () => {
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          {/* Username */}
           <div>
             <label htmlFor="username" className="block text-sm">
               Username
@@ -64,7 +64,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label htmlFor="password" className="block text-sm">
               Password
@@ -80,7 +79,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <div className="mt-6">
             <button
               type="submit"
@@ -91,7 +89,7 @@ const Login = () => {
           </div>
         </form>
 
-        {/* Forgot Password */}
+
         <p className="mt-6 text-center text-gray-300">
           <a
             href="/"
@@ -101,7 +99,7 @@ const Login = () => {
           </a>
         </p>
 
-        {/* Register Link */}
+
         <p className="mt-4 text-center">
           Don’t have an account?{" "}
           <a href="/register" className="text-indigo-500 hover:text-indigo-400">
