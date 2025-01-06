@@ -8,7 +8,7 @@
 - AI-powered blog content creation with Google Gemini AI.
 - Dashboard to manage blogs with filters for tone, length, and content origin (AI/User-generated).
 - Responsive design with Tailwind CSS.
-- Support for manual edits with change tracking.
+- PostgresSQL for secure data storage.
 - Notifications for actions using React Toastify.
 - Integration with Cloudinary for handling media uploads.
 
