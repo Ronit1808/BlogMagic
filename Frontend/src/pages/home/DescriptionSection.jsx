@@ -3,7 +3,7 @@ import illustration2 from "../../assets/illustration2.svg";
 
 const DescriptionSection = () => {
   return (
-    <div className="text-white py-10 mb-10">
+    <div className="text-white py-10 mb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center">
         {/* Text Section */}
         <div className="w-full lg:w-1/2 lg:pr-12 text-center lg:text-left">

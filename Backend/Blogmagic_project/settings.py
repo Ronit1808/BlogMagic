@@ -23,9 +23,9 @@ import cloudinary.uploader
 import cloudinary.api
 
 cloudinary.config( 
-    cloud_name = "dcevhgv7l", 
-    api_key = "673448644973349", 
-    api_secret = "7RBiZ9DDJYQil8CpYkDF1_37pKY",
+    cloud_name = config('CLOUD_NAME'),
+    api_key =  config('API_KEY'),
+    api_secret = config('API_SECRET'),
 )
 
 
@@ -162,7 +162,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE= "whitenoise.storage.CompressedManifestStaticFilesStorage"
-MEDIA_URL = 'https://res.cloudinary.com/dcevhgv7l/'
+MEDIA_URL = f'https://res.cloudinary.com/{config("CLOUD_NAME")}/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 

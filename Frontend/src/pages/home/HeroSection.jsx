@@ -18,7 +18,7 @@ const HeroSection = () => {
           <div className="mt-12">
           <Link
             to="/create"
-            className=" text-white text-sm sm:text-xl px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
+            className=" text-white text-base sm:text-xl px-5 py-4 sm:px-6 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition-all duration-200"
           >
             Create Now
           </Link>

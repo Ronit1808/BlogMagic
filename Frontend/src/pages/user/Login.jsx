@@ -1,12 +1,15 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../components/context/AuthContext";
+import Loading from "../../components/Loading";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,8 +19,14 @@ const Login = () => {
       navigate("/");
     } catch (err) {
       setError("Invalid username or password. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">

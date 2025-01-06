@@ -3,7 +3,7 @@ import illustration from '../../assets/illustration.svg'
 
 const FeaturesSection = () => {
   return (
-    <div className="text-white py-10 mt-8 sm:mt-16">
+    <div className="text-white py-10 mt-4 sm:mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
         <div className="w-full lg:w-1/2 mb-12 lg:mb-0 group">
           <img
