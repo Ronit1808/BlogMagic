@@ -90,14 +90,32 @@ Follow these steps to set up the project locally:
 
 ### Deployment
 1. Deploy the frontend using Netlify:
-- Build the React app: npm run build.
-- Upload the build folder to Netlify.
+  - Build the React app: npm run build.
+  - Upload the build folder to Netlify.
 
 2. Deploy the backend using Render:
-- Push the backend code to a GitHub repository.
-- Connect Render to your GitHub repo and configure environment variables.
+  - Push the backend code to a GitHub repository.
+  - Connect Render to your GitHub repo and configure environment variables.
 
 ### Screenshots
+
+### Home Page
+![Home](Frontend/src/assets/images/home.png)
+
+### Footer 
+![Footer](Frontend/src/assets/images/home3.png)
+
+### Dashboard
+![Dashboard](Frontend/src/assets/images/dashboard.png)
+
+### Create
+![Create](Frontend/src/assets/images/create.png)
+
+### Blog
+![Blog](Frontend/src/assets/images/blogpage.png)
+
+### Account
+![Account](Frontend/src/assets/images/account.png)
 
 
 
