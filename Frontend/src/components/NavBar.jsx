@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import AuthContext from "./context/AuthContext";
 import useOutsideClick from "../../useOutsideClick";
-import { RxMagicWand } from "react-icons/rx";
+import { IoSparklesOutline } from "react-icons/io5";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,9 +27,9 @@ const NavBar = () => {
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/">
-                <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">BlogMagic</span>
+                <span className="text-xl sm:text-2xl font-bold text-white hover:bg-gradient-to-r from-purple-500 to-indigo-500 hover:bg-clip-text hover:text-transparent">BlogMagic</span>
               </Link>
-              <span className="text-lg sm:text-xl  pt-2 pl-2 "> <RxMagicWand /> </span>
+              <span className="text-lg sm:text-xl  pt-2 pl-2 "> <IoSparklesOutline /> </span>
             </div>
 
             {/* Desktop Menu */}
