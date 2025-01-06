@@ -205,3 +205,10 @@ class UserProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+    
+class HealthCheckView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response({"status": "ok"}, status=200)
+
+    def head(self, request, *args, **kwargs):
+        return Response(status=200)
