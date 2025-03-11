@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL =  'https://blogmagic-production.up.railway.app/api';
+const baseURL =  'https://blogmagic.onrender.com/api';
 const api = axios.create({
   baseURL: baseURL, 
   headers: {
